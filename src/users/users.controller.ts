@@ -10,17 +10,23 @@ class ListAllEntities {
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller({
-  path: 'users'
+  path: 'users',
+  //scope: Scope.REQUEST
 })
 export class UsersController {
   constructor(private readonly usersService: UsersService) {
-    console.log('instantiating users controller...')
+    console.log('instantiating UsersController...')
   }
 
   @SerializeOptions({excludePrefixes: ['__']})
   @Get()
   findAll(@Query() query: ListAllEntities) {
     return this.usersService.findAll();
+  }
+
+  @Get('/count')
+  countAll() {
+    return this.usersService.countAll();
   }
 
   @SerializeOptions({groups: ['detail']})
@@ -40,21 +46,8 @@ export class UsersController {
     return true;
   }
 
-  @Get(':id/withBook')
-  findOneWithBook() {
-    return `test method api trigger..`;
-  }
-  
-  //-------------------------------------------------
-
-  @SerializeOptions({excludePrefixes: ['__']})
-  @Get('/test')
-  test() {
-    return `test method api trigger..`;
-  }
-
   @Get(':id/:secret')
   findOneWithSecret(@Param('id') id: number, @Param('secret') secret: string) {
-    return `id = ${id}, secret = ${secret}`
+    return `id = ${id}, secret = ${secret}`;
   }
 }

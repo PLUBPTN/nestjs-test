@@ -35,4 +35,8 @@ export class UsersService {
   async remove(id: number): Promise<void> {
     await this.usersRepository.delete(id);
   }
+
+  countAll(): Promise<number> {
+    return this.usersRepository.createQueryBuilder("user").getCount();
+  }
 }

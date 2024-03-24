@@ -1,8 +1,6 @@
 import { Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, Query, SerializeOptions, UseInterceptors } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './create-user.dto';
-import { REQUEST } from '@nestjs/core';
-import { Scope } from '@nestjs/common';
 
 class ListAllEntities {
   limit: number
@@ -37,6 +35,11 @@ export class UsersController {
 
   @Post()
   create(@Body() body: CreateUserDto){
+    //console.log(body.isValidate())
+    // if(!body.isValidate()){
+    //   throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+    // }
+
     return this.usersService.create(body);
   }
 

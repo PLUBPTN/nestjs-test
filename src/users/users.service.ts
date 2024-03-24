@@ -24,11 +24,6 @@ export class UsersService {
 
   create(dto: CreateUserDto): Promise<User> {
     const userEntity = this.usersRepository.create(dto);
-    if(dto.books){
-      const bookEntities = this.booksRepository.create(dto.books);
-      console.log(bookEntities)
-      userEntity.books = bookEntities
-    }
     return this.usersRepository.save(userEntity); 
   }
 

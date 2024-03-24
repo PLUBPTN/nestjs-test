@@ -20,14 +20,14 @@ export class User {
   @Column({ default: true })
   isActive: boolean;
 
-  @Exclude()
-  @Column({ unique: true })
-  organizationId: string;
+  //@Exclude()
+  //@Column({ unique: true })
+  // organizationId: string;
 
   @Column({ type: 'text', nullable: true })
   __privateInformation: string;
 
-  @OneToMany(() => Book, (book) => book.user)
+  @OneToMany(() => Book, (book) => book.user, { cascade: ['insert', 'update'] })
   books: Book[]
 
   @Expose()
